@@ -1,4 +1,4 @@
-<!-- header.html (ch09www project) -->
+<!-- header.html (ch10www project) -->
     <nav class='navbar navbar-default'>
         <div class='container-fluid'>
             <div class='navbar-header'>
@@ -11,12 +11,12 @@
                     {% if username %}
                     <li><a href='/userinfo'>個人資料</a></li>
                     <li><a href='/post'>寫日記</a></li>
-                    <li><a href='/contact'>連絡管理員</a></li>
                     <li><a href='/logout'>登出</a></li>
                     {% else %}
                     <li><a href='/login'>登入</a></li>
+                    <li><a href='/accounts/register'>註冊</a></li>
                     {% endif %}
                     <li><a href='/admin'>後台管理</a></li>
             </ul>
         </div>
-    </nav>v
+    </nav>

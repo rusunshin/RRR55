@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from mysite import views
+from django.urls import path, re_path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,5 +29,6 @@ urlpatterns = [
     path('login/', views.login),
     path('logout/', views.logout),
     path('userinfo/', views.userinfo),
+    path('accounts/', include('registration.backends.default.urls')),
 
 ]

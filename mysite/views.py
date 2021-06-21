@@ -115,11 +115,22 @@ def logout(request):
 def userinfo(request):
     if request.user.is_authenticated:
         username = request.user.username
+    user = User.objects.get(username=username)
     try:
-        user = User.objects.get(username=username)
-        userinfo = models.Profile.objects.get(user=user)
+        profile = models.Profile.objects.get(user=user)
     except:
-        pass
+        profile = models.Profile(user=user)
+
+    if request.method == 'POST':
+        profile_form = forms.ProfileForm(request.POST, instance=profile)
+        if profile_form.is_valid():
+            messages.add_message(request, messages.INFO, "個人資料已儲存")
+            profile_form.save()
+            return HttpResponseRedirect('/userinfo')
+        else:
+            messages.add_message(request, messages.INFO, '要修改個人資料，每一個欄位都要填...')
+    else:
+        profile_form = forms.ProfileForm()
     return render(request, 'userinfo.html', locals())
 
 

@@ -1,7 +1,11 @@
+<!-- userinfo.html (ch10www project) -->
 {% extends "base.html" %}
 {% block title %}分享日記{% endblock %}
 {% block content %}
 <div class='container'>
+{% for message in messages %}
+    <div class='alert alert-{{message.tags}}'>{{ message }}</div>
+{% endfor %}
 <div class='row'>
     <div class='col-md-12'>
         <div class='panel panel-default'>
@@ -11,19 +15,27 @@
         </div>
     </div>
 </div>
-    <div class="row">
-        <div class='col-md-12'>
-            <div class='panel panel-default'>
-                <div class='panel-heading' align=center>
-                    {{ userinfo.user.username | upper }}
-                </div>
-                <div class="panel panel-body">
-                    電子郵件: {{ userinfo.user.email }}<br/>
-                    身高: {{ userinfo.height }}<br/>
-                    性別: {{ userinfo.male | yesno:"男生, 女生" }}
-                </div>
+<div class='row'>
+    <div class='col-md-12'>
+        <div class='panel panel-primary'>
+            <div class='panel-heading' align=center>
+                {{ profile.user.username | upper }}
+            </div>
+            <div class='panel panel-body'>
+                電子郵件：{{ profile.user.email }}<br/>
+                身高：{{ profile.height }} cm<br/>
+                性別：{{ profile.male | yesno:"男生,女生"}}<br/>
+                個人網站：<a href='{{ profile.website }}'>{{ profile.website }}</a>
             </div>
         </div>
     </div>
+</div>
+<form name='myname' action='.' method='POST'>
+    {% csrf_token %}
+    <table>
+    {{ profile_form.as_table }}
+    </table>
+    <input type='submit' value='修改個人資料'>
+</form>
 </div>
 {% endblock %}
